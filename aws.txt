@@ -1,0 +1,22 @@
+first create instance to install packets
+
+* vpc
+* subnets
+* internet gateway
+* route table
+* security group
+* instance
+
+then check to putty on network sucessfully created or not
+
+* install java
+* install maven
+* install apache tomcat
+* install jenkins
+
+
+
+Git Account:
+     username: Smi143
+    pass: Smaaid@143
+
