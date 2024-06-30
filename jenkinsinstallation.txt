@@ -1,0 +1,36 @@
+Jenkins: 
+ 
+what is jenkins: 
+jenkins is an open source automation too.it was pull the code on github.it helps to software development related to building, testing and deploying.
+
+what is use of jenkins:
+it is most popular open source CI/CD tool in the present market and is use in support of Devops, alongside other cloud native tools.
+
+install:
+* lunch instance with amazon linux with t2 medium. then give port :8080
+* sudo su -                   is was be root directory
+* useradd (user name)         it was give new username
+* passwd (username)           it was give password
+* visudo then give to admin access(like username(jenkinshost ALL=(ALL) NOPASSWD: ALL
+* vi /etc/ssh/sshd_config     then check password path location then enable
+* systemctl restart sshd      it was recent changes and update
+* systemctl reload sshd       it was be reload the changes
+* after creating username and password then now open new section then enter IP address
+* then now give login and password
+* sudo amazon-linux-extras install java-openjdk11 -y    Install Java then after check java --version to install or not
+* sudo wget -O /etc/yum.repos.d/jenkins.repo \
+               https://pkg.jenkins.io/redhat-stable/jenkins.repo               installnation of jenkins
+* sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.2023.key           it was be importing key to jenkins
+* cd /etc/yum.repos.d/
+* sudo yum upgrade         is was be upgrade all servers
+* sudo yum install jenkins 
+* cd       then exit from root
+* rpm -qa jenkins
+* sudo systemctl daemon-reload         all was all serves restart
+* sudo systemctl enable jenkins        enable the jenkins to start at boot
+* sudo systemctl start jenkins         to start jenkins
+* sudo systemctl status jenkins        to check status
+* jenkins --version       to check version
+* ip:8080            give (like(publicip:port8080))
+* in homepage we can unlock key then copy some path link then copy on excivte command on paste then give key then now copy key paste on homepage
+* then now give user id and password.   
