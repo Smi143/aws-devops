@@ -1,0 +1,246 @@
+*************** Maven server Installation & Configuration ***************
+
+Launching EC2 instance in AWS Cloud Platform
+Connect now using putty tool
+update EC2 instance using bellow command
+yum update -y
+Installl java (Maven prerequest...) 
+yum install java-1.8* -y
+whereis java .....
+find /usr/lib/jvm/java-1.8* | head -n 3
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.412.b08-1.amzn2.0.1.x86_64
+vi ~/.bash_profile edit file with below java path
+
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.412.b08-1.amzn2.0.1.x86_64
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME
+
+save it now
+    
+echo $PATH
+source ~/.bash_profile
+echo $PATH
+java -version
+sudo update-alternatives --config java
+
+Now go to /opt directory then download maven using wget command 
+
+wget https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz
+tar -xvzf apache-maven-3.9.8-bin.tar.gz  
+rm -f apache-maven-3.9.8-bin.tar.gz
+
+vi ~/.bash_profile under this file we can update maven path
+
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.412.b08-1.amzn2.0.1.x86_64
+M2_HOME=/opt/apache-maven-3.9.8
+M2=/opt/apache-maven-3.9.8/bin
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2:$M2_HOME
+
+export PATH
+~
+~
+~
+~
+~
+
+
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2:$M2_HOME
+
+
+ echo $PATH
+ source ~/.bash_profile
+ echo $PATH
+ mvn --version
+
+Install Git tool
+yum install git -y
+   git clone https://github.com/ravdy/first-demo-project.git
+                      or 
+       https://github.com/smartitsoloutions/maven-web-application.git
+
+   ls
+   cd first-demo-project/
+   ls
+   mvn validate
+   mvn compile after compile completed target directory created
+   ls
+   mvn test compile
+   mvn test
+   mvn package    by using this command jar or war file converting now
+   find / -name .m2
+   mvn install by using this command we have to store our build in local reposatory 
+
+
+
+2nd method installation of MAVEN:
+
+
+*   yum update -y
+*   yum install java-1.8.0-openjdk -y
+*   yum install java-1.8.0-openjdk-devel -y
+*  then now goto maven website then Binary tar.gz archive copy the link
+*  wget (paste the link)
+*  ls check the file
+*  tar xvfz apach-maven-(version)-bin.tar.gz -C /opt/
+*  ll /opt/
+*  sudo chown -R ec2-user:ec2-user /opt/apache-maven(version)/
+*  ll /opt/
+*  export M2_HOME=/opt/apache-maven-(version)/
+*  export PATH=$PATH:$M2_HOME/bin
+*  mvn --version
+*  ls -a
+*  vi .bash_profile  on (last to enter ( export M2_HOME=/opt/apache-maven-(version)
+                                        ( export PATH=$PATH:$M2_HOME/bin)
+ 
+
+
+
+
+
+
+1)mvn archetype:generate -> it will create a project structure
+
+
+* ls    to check list of files
+* cd  (name of file)/
+* sudo yum -y install tree
+* tree .
+
+2) mvn validate ->it will validate project structure
+
+3)mvn compile     ->it will convert java files into class files
+
+* tree .
+* vi src/main/java/ishisolutions/App.java
+
+
+mvn compile     ->it will convert java files into class files
+
+*  cd (file name)/
+*  ls
+*  jar -tvf target/(filename)-1.0-SNAPSHOT.jar
+*  java -cp target/(filename)-1.0-SNAPSHOT.jar (filename).App
+*  vi src/main/java/ishisolutions/App.java
+*  
+
+4)mvn test     ->it will test.class files
+
+5)mvn package    ->it will help to create .jar, war or .ear
+
+*  java -cp target/(filename)-1.0-SNAPSHOT.jar (filename).App
+
+6)mvn install      >it will install the package locally 
+
+7)mvn deploy - ->it will install package remotely.
+
+
+create a jar file using maven:
+
+
+1)mvn archetype:generate
+
+project number:
+
+group id : unique project name (technical adda)
+
+artifact id : out put file name (simplejar.jar)
+
+packaage id : same as group id
+
+version : 1.0-SNAPSHOT
+
+2)mvn validate
+
+3)mvn compile
+
+4)mvn test
+
+5)mvn package
+
+To see the content in the .jar file
+
+jar-tvf target/simplejar-1.0-SNAPSHOT.jar
+
+java -cp target/simplejar-1.0-SNAPSHOT.jar technicaladda.App
+
+
+
+
+
+
+
+
+
+How to create maven project using eclipes IDE tool
+
+Create a maven project
+Group Id:
+Artifact Id:
+version:
+compile
+test compile
+test
+package
+install
+
+Maven Project Build in linux host
+***********************************
+Login with root account 
+
+ mvn archetype:generate
+ 
+   mvn archetype:generate | grep maven-archetype-webapp
+   mvn archetype:generate
+
+2163
+
+How to deploy maven project on tomcat server
+
+
+Update pom.xml code to add maven plugin to copy artifacts onto tomcat this should be under
+
+  <plugin>
+			<groupId>org.apache.tomcat.maven</groupId>
+			<artifactId>tomcat7-maven-plugin</artifactId>
+			<version>2.2</version>
+	  	<configuration>
+   		<url>http://34.229.147.198:8080/manager/text</url>
+   		<server>TomcatServer</server>
+   		<path>/second_project_app</path>
+		  </configuration>
+  </plugin>
+
+
+
+create settings.xml for credentials Under /root/.m2 dirctroy
+
+<?xml version="1.0" encoding="UTF-8"?>
+ <settings>
+ 	<servers>
+
+ 		<server>
+ 			<id>TomcatServer</id>
+ 			<username>admin</username>
+ 			<password>admin</password>
+ 		</server>
+
+ 	</servers>
+ </settings>
+
+Build and the project on tomcat
+    
+mvn tomcat7:deploy
+
+
+
+
