@@ -1,0 +1,139 @@
+Apache Tomcat:
+____________________________________________________________________
+
+Tomcat is an open-source Web application service developed by the Apache Software 
+Foundation. It is used to run Java-based web applications, such as Java 
+Servlets and JavaServer Pages (JSP). Tomcat is a standalone server and can 
+handle HTTP requests on its own. It does not depend on the Apache HTTP Server
+
+The Apache server is an HTTP web server, while the Apache Tomcat server is
+mainly a Java application server. Tomcat is written in Java, while Apache
+is written in C. Tomcat is used to serve dynamic content such as Java 
+Servlets and JSP files, while Apache is used to serve static content.
+
+it is used to run java web applications & it is developed by Apache Organization
+
+it is developed by java language & it run on port 8080 by default 
+we can also chagen the default port number under server.xml file
+
+
+Tomcat Server configuration  
+____________________________________________________________________
+
+launch EC2 instanc with port number 8080 under Security Group:
+
+install java :
+
+sudo yum install java-1.8* -y
+
+Download Tomcat Server:
+first we have been change dir : cd opt/
+
+wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.46/bin/apache-tomcat-9.0.46.tar.gz
+
+Unzip Tomcat file:
+
+tar -xvf apache-tomcat-9.0.46.tar.gz
+
+Rename the packege directory name with tomcat
+mv apache-tomcat-9.0.46/ tomcat
+rm -f apache-tomcat-9.0.80.tar.gz
+
+lsof -i -n -P |grep LISTEN
+
+sh startup.sh
+sh shutdown.sh
+
+ cd /opt/apache-tomcat/webapps/manager/META-INF/
+vi context.xml
+
+we need to add (   <role rolename="manager-gui"/>
+                   <role rolename="manager-script"/>
+                   <user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>  )
+
+ cd /opt/
+
+chmod +x /opt/apache-tomcat-9.0.46/bin/startup.sh 
+
+Important Note: using ls command
+
+bin           conf             lib      logs    README.md      RUNNING.txt  webapps
+BUILDING.txt  CONTRIBUTING.md  LICENSE  NOTICE  RELEASE-NOTES  temp         work
+
+
+bin: 
+it contain binary files it helps start & stop service
+conf:
+it contains the configruation files avaliable (users, port no)
+libs:
+it contains libariry files (servlet-api.jar, jsp-api.jar)
+webapps:
+it is used to deployed our web application in this directroy and
+it is also called deployment directroy & it keeps war file in the directrorry
+it is also contain logs and tem
+
+
+----> to check port lisner list in linux using lsof -i -n -P |grep LISTEN (there is no port number 8080)
+
+---> Now go to start service under bin directory using sh startup.sh or ./startup.sh command
+
+
+-->In Manager context.xml file, change <Valve> section like below (allow attribute value changed)
+
+-->Now change context.xml file with ".* " /> under cd /tomcat/webapps/manager/META-INF/
+
+--> We need to add users in tomcat server to perform admin activities
+File Location: <tomcat-folder>/conf/tomact-users.xml 
+
+we need to add (   <role rolename="manager-gui"/>
+                   <role rolename="manager-script"/>
+                   <user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>  )
+
+ <role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="manager-jmx"/>
+ <role rolename="manager-status"/>
+ <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ <user username="deployer" password="deployer" roles="manager-script"/>
+ <user username="tomcat" password="scret" roles="manager-gui"/>
+
+---> Finaly we can start tomcat server Now go to start service under bin directory using sh startup.sh or ./startup.sh command
+
+ now check in the brower using public IP addres with port number example 142.154.258.12:8080
+
+
+
+How to change default port number in apache tomcat server
+______________________________________________________
+
+
+apache-tomcat-9.0.46  apache-tomcat-9.0.46.tar.gz  aws  rh
+[root@ip-192-168-2-244 opt]# mv apache-tomcat-9.0.46.tar.gz apache-tomcat-9.0.46
+[root@ip-192-168-2-244 opt]# ls
+apache-tomcat-9.0.46  aws  rh
+[root@ip-192-168-2-244 opt]# rm -f apache-tomcat-9.0.46.tar.gz
+[root@ip-192-168-2-244 opt]# ls
+apache-tomcat-9.0.46  aws  rh
+[root@ip-192-168-2-244 opt]# cd apache-tomcat-9.0.46/
+[root@ip-192-168-2-244 apache-tomcat-9.0.46]# ls
+apache-tomcat-9.0.46.tar.gz  BUILDING.txt  CONTRIBUTING.md  LICENSE  NOTICE     RELEASE-NOTES  temp     work
+bin                          conf          lib              logs     README.md  RUNNING.txt    webapps
+[root@ip-192-168-2-244 apache-tomcat-9.0.46]# chmod 777 webapps/
+[root@ip-192-168-2-244 apache-tomcat-9.0.46]# cd ..
+[root@ip-192-168-2-244 opt]# pwd
+/opt
+[root@ip-192-168-2-244 opt]# cd apache-tomcat-9.0.46/webapps/manager/META-INF/
+[root@ip-192-168-2-244 META-INF]# ls
+context.xml
+[root@ip-192-168-2-244 META-INF]# vi context.xml
+per.bat
+[root@ip-192-168-2-244 bin]# sh startup.sh
+Using CATALINA_BASE:   /opt/apache-tomcat-9.0.46
+Using CATALINA_HOME:   /opt/apache-tomcat-9.0.46
+Using CATALINA_TMPDIR: /opt/apache-tomcat-9.0.46/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /opt/apache-tomcat-9.0.46/bin/bootstrap.jar:/opt/apache-tomcat-9.0.46/bin/tomcat-juli.jar
+Using CATALINA_OPTS:
+Tomcat started.
+[root@ip-192-168-2-244 bin]#
+
